@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script type="text/javascript" src = "js/vue.min.js"></script>
+	</head>
+	<body>
+
+		<!--理解组件的创建和注册-->
+		<div id="app-base-1">
+           app-base-1:<my-component></my-component>
+        </div>
+        <div id="app-base-2">
+            app-base-2:<my-component></my-component>
+        </div>
+        <!--该组件不会被渲染-->
+        <div id="app-base-3">
+        	app-base-3:<my-component></my-component>
+        </div>
+
+        <br/>
+
+		demo-script
+        <div id="demo-script">
+        	<component-script></component-script>
+        </div>
+		<script type="text/x-template" id="component-script-data">
+			<div>Hello demo-script</div>
+		</script>
+
+		<br/>
+
+
+		<div id="demo">
+			<span>Message is: {{ message }}</span>
+			<br>
+			<input type="text" v-model="message" placeholder="edit me">
+		
+		</div>
+		<div id="demo2">
+			<input type="checkbox" id="checkbox" v-model="checked">
+			<label for="checkbox">{{ checked }}</label>
+		</div>
+		<ul id="demo-list">
+		  <li v-for="item in items">
+			{{$index}}、{{ item.message }}
+		  </li>
+		</ul>
+	</body>
+
+	<script>
+
+		var myComponent = Vue.extend({
+            template: '<span>This is a component!</span>'
+        });
+        
+        Vue.component('my-component', myComponent);
+        
+        var appBase1 = new Vue({
+            el: '#app-base-1'
+        });
+        
+        var appBase2 = new Vue({
+            el: '#app-base-2'
+        });
+
+        new Vue({
+        	el: "#demo-script",
+        	components : {
+        		'component-script' : {
+        		 	template: '#component-script-data'
+        		}
+        	}
+        });
+
+
+		new Vue({
+		  el: '#demo',
+		  data: {
+			message: 'Hello World!'
+		  }
+		});
+		
+		new Vue({
+		  el: '#demo2',
+		  data : {
+			checked:true
+		  }
+		});
+		
+		new Vue({
+		  el: '#demo-list',
+		  data: {
+			items: [
+			  { message: 'Foo' },
+			  { message: 'Bar' }
+			]
+		  }
+		});
+	</script>
+</html>
